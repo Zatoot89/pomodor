@@ -11,6 +11,7 @@ import SvgIcon from '@material-ui/core/SvgIcon'
 import { GoogleIcon } from './GoogleIcon'
 import { linkAccount } from '../../data/auth/actions'
 import { googleAuthProvider } from '../../firebase/firebase'
+import { firebase } from '../../firebase/firebase'
 import { setProgressVisibility } from '../../data/progress/actions'
 
 export const SignIn = () => {
@@ -21,6 +22,20 @@ export const SignIn = () => {
     dispatch(setProgressVisibility(true))
     handleClose()
     await dispatch(linkAccount(googleAuthProvider))
+    dispatch(setProgressVisibility(false))
+  }
+
+  const emailAuth = async () => {
+    const email = window.prompt('Email')
+    const password = window.prompt('Password')
+    if (!email || !password) return
+    dispatch(setProgressVisibility(true))
+    handleClose()
+    try {
+      await firebase.auth().signInWithEmailAndPassword(email, password)
+    } catch (e) {
+      await firebase.auth().createUserWithEmailAndPassword(email, password)
+    }
     dispatch(setProgressVisibility(false))
   }
 
@@ -56,6 +71,9 @@ export const SignIn = () => {
             </SvgIcon>
           </ListItemIcon>
           <ListItemText primary="Sign in via Google" />
+        </MenuItem>
+        <MenuItem onClick={emailAuth}>
+          <ListItemText primary="Sign in via Email" />
         </MenuItem>
       </Menu>
     </>

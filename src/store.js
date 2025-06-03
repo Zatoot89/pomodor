@@ -6,6 +6,7 @@ import { reducer as settingsReducer } from './data/settings/reducer'
 import { reducer as labelsReducer } from './data/labels/reducer'
 import { reducer as sessionsReducer } from './data/sessions/reducer'
 import { reducer as progressReducer } from './data/progress/reducer'
+import { reducer as subscriptionReducer } from './data/subscription/reducer'
 import { reducer as timerReducer } from './scenes/Timer/data/timer/reducer'
 
 const appReducer = combineReducers({
@@ -15,6 +16,7 @@ const appReducer = combineReducers({
   timer: timerReducer,
   sessions: sessionsReducer,
   progress: progressReducer,
+  subscription: subscriptionReducer,
 })
 
 const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 25 })

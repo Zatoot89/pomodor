@@ -10,6 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import TimerIcon from '@material-ui/icons/Timer'
 import ShowChartIcon from '@material-ui/icons/ShowChart'
 import SettingsIcon from '@material-ui/icons/Settings'
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
 import { useTheme } from '@material-ui/core'
 import Tooltip from '@material-ui/core/Tooltip'
 import { STATUSES } from '../../scenes/Timer/data/timer/reducer'
@@ -79,6 +80,15 @@ export const NavList = () => {
           </NavListItem>
         </Link>
       </Tooltip>
+
+      <Link to="/export">
+        <NavListItem button>
+          <NavItemIcon>
+            <CloudDownloadIcon />
+          </NavItemIcon>
+          <ListItemText primary="Export" />
+        </NavListItem>
+      </Link>
     </MatNavList>
   )
 }

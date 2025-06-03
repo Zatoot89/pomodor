@@ -12,6 +12,7 @@ import { ThemeConfig } from './ThemeConfig'
 import { startSetLabels } from './data/labels/actions'
 import { startSetSessions } from './data/sessions/actions'
 import { setProgressVisibility } from './data/progress/actions'
+import { startLoadSubscription } from './data/subscription/actions'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -35,6 +36,7 @@ const App = () => {
           dispatch(startSetSettings()),
           dispatch(startSetLabels()),
           dispatch(startSetSessions()),
+          dispatch(startLoadSubscription()),
         ])
 
         dispatch(setProgressVisibility(false))

@@ -39,6 +39,10 @@ If Pomodor adds any value to your life, you might consider [donation][donate]. B
 
 Feel free to create pull requests and open some issues.
 
+## SaaS and Monetization
+
+This fork adds basic SaaS capabilities. Users can now sign in using email or Google accounts, upgrade to a Pro plan and unlock features such as data export. Subscription status is stored locally but can be extended to any backend or payment provider like Stripe for real monetization.
+
 [image 1]: screenshots/1.svg?raw=true&sanitize=true
 [image 2]: screenshots/2.svg?raw=true&sanitize=true
 [image 3]: screenshots/3.svg?raw=true&sanitize=true

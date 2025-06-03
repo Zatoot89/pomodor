@@ -9,6 +9,8 @@ import MatLinearProgress from '@material-ui/core/LinearProgress'
 import { Timer } from '../scenes/Timer/Timer'
 import { Stats } from '../scenes/Stats/Stats'
 import { Settings } from '../scenes/Settings/Settings'
+import { Upgrade } from '../scenes/Upgrade/Upgrade'
+import { Export } from '../scenes/Export/Export'
 import { ScrollToTop } from './navigation/ScrollToTop'
 import { Page404 } from '../Page404'
 import { Footer } from './footer/Footer'
@@ -34,6 +36,8 @@ export const MainContainer = () => {
             <Route path="/timer" component={Timer} />
             <Route path="/stats" component={Stats} />
             <Route path="/settings" component={Settings} />
+            <Route path="/upgrade" component={Upgrade} />
+            <Route path="/export" component={Export} />
             <Route component={Page404} />
           </Switch>
         </Box>
