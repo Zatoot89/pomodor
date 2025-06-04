@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { resetTimer, setSaveSessionAlert } from '../data/timer/actions'
 import { TYPES, STATUSES } from '../data/timer/reducer'
 import { SaveSessionAlert } from './SaveSessionAlert'
+import { clearTasks } from '../../../data/tasks/actions'
 
 export const ResetButton = () => {
   const { type, timeLeft, status } = useSelector((state) => state.timer)
@@ -55,6 +56,7 @@ export const ResetButton = () => {
         break
     }
     dispatch(resetTimer({ duration, showTimerInTitle }))
+    dispatch(clearTasks())
   }
 
   return (

@@ -7,6 +7,7 @@ import { reducer as labelsReducer } from './data/labels/reducer'
 import { reducer as sessionsReducer } from './data/sessions/reducer'
 import { reducer as progressReducer } from './data/progress/reducer'
 import { reducer as subscriptionReducer } from './data/subscription/reducer'
+import { reducer as tasksReducer } from './data/tasks/reducer'
 import { reducer as timerReducer } from './scenes/Timer/data/timer/reducer'
 
 const appReducer = combineReducers({
@@ -14,6 +15,7 @@ const appReducer = combineReducers({
   settings: settingsReducer,
   labels: labelsReducer,
   timer: timerReducer,
+  tasks: tasksReducer,
   sessions: sessionsReducer,
   progress: progressReducer,
   subscription: subscriptionReducer,

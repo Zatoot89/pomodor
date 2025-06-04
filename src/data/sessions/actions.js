@@ -33,7 +33,7 @@ export const addSession = (session) => ({
 export const startAddSession = (session) => {
   return async (dispatch, getState) => {
     const uid = getState().auth.uid
-    const { duration, label = null, createdAt } = session
+    const { duration, label = null, tasks = [], createdAt } = session
 
     const newSessionRef = fs.collection(`users/${uid}/sessions`).doc()
 
@@ -47,6 +47,7 @@ export const startAddSession = (session) => {
     await newSessionRef.set({
       duration,
       label,
+      tasks,
       createdAt,
     })
 

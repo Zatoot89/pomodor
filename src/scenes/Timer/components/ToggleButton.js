@@ -20,6 +20,7 @@ import work from '../assets/work.png'
 import alarm from '../assets/alarm.png'
 import coffee from '../assets/coffee.png'
 import { startAddSession } from '../../../data/sessions/actions'
+import { clearTasks } from '../../../data/tasks/actions'
 import useMounted from '../../../helpers/useMounted'
 
 export const ToggleButton = () => {
@@ -30,6 +31,7 @@ export const ToggleButton = () => {
   const darkModeCached = +JSON.parse(localStorage.getItem('darkMode'))
 
   const label = useSelector((state) => state.labels.labelSelected)
+  const tasks = useSelector((state) => state.tasks)
 
   const dispatch = useDispatch()
 
@@ -67,9 +69,11 @@ export const ToggleButton = () => {
             startAddSession({
               label: label ? label.id : null,
               duration: { minutes: settings.workDuration, seconds: 0 },
+              tasks,
               createdAt: Date.now(),
             })
           )
+          dispatch(clearTasks())
         }
 
         setTimeout(async () => {
