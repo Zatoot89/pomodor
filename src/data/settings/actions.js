@@ -153,6 +153,40 @@ export const startSetFirstDayOfTheWeek = (firstDayOfTheWeek) => {
   }
 }
 
+export const setDailyGoal = (dailyGoal) => ({
+  type: 'SET_DAILY_GOAL',
+  dailyGoal,
+})
+
+export const startSetDailyGoal = (dailyGoal) => {
+  return async (dispatch, getState) => {
+    const uid = getState().auth.uid
+
+    dispatch(setDailyGoal(dailyGoal))
+
+    await fs
+      .doc(`users/${uid}`)
+      .set({ settings: { dailyGoal } }, { merge: true })
+  }
+}
+
+export const setWeeklyGoal = (weeklyGoal) => ({
+  type: 'SET_WEEKLY_GOAL',
+  weeklyGoal,
+})
+
+export const startSetWeeklyGoal = (weeklyGoal) => {
+  return async (dispatch, getState) => {
+    const uid = getState().auth.uid
+
+    dispatch(setWeeklyGoal(weeklyGoal))
+
+    await fs
+      .doc(`users/${uid}`)
+      .set({ settings: { weeklyGoal } }, { merge: true })
+  }
+}
+
 export const setSettings = (settings) => ({
   type: 'SET_SETTINGS',
   settings,

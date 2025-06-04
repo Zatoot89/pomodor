@@ -8,6 +8,8 @@ export const initialState = {
   darkMode: false,
   autostart: false,
   firstDayOfTheWeek: 'Monday',
+  dailyGoal: { type: 'pomodoros', value: 4 },
+  weeklyGoal: { type: 'pomodoros', value: 20 },
 }
 
 export const reducer = (state = initialState, action) => {
@@ -56,6 +58,16 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         firstDayOfTheWeek: action.firstDayOfTheWeek,
+      }
+    case 'SET_DAILY_GOAL':
+      return {
+        ...state,
+        dailyGoal: action.dailyGoal,
+      }
+    case 'SET_WEEKLY_GOAL':
+      return {
+        ...state,
+        weeklyGoal: action.weeklyGoal,
       }
     case 'SET_SETTINGS':
       return {

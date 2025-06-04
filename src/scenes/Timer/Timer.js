@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box'
 import { CountdownCircle } from './components/CountdownCircle'
 import { ToggleButton } from './components/ToggleButton'
 import { RoundsCounter } from './components/RoundsCounter'
+import { DailyProgress } from './components/DailyProgress'
 import { ResetButton } from './components/ResetButton'
 import { SkipButton } from './components/SkipButton'
 import { FullscreenDialog } from './components/Labels/FullscreenDialog'
@@ -42,6 +43,9 @@ export const Timer = () => {
 
       <Box display="flex" justifyContent="center">
         <RoundsCounter />
+      </Box>
+      <Box display="flex" justifyContent="center">
+        <DailyProgress />
       </Box>
 
       <FullscreenDialog />

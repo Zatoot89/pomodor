@@ -4,6 +4,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { Sliders } from './components/Sliders'
 import { Switches } from './components/Switches'
 import { DaySelect } from './components/DaySelect'
+import { Goals } from './components/Goals'
 
 export const Settings = () => {
   const sidenav = +useMediaQuery('(min-width:600px) and (min-height:500px)')
@@ -12,6 +13,7 @@ export const Settings = () => {
     <Container sidenav={sidenav}>
       <Sliders />
       <DaySelect />
+      <Goals />
       <Switches />
     </Container>
   )
