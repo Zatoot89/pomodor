@@ -14,7 +14,13 @@ export const SkipButton = () => {
     <ActionIcon
       disabled={!timeLeft}
       aria-label="Skip current timer"
-      onClick={() => dispatch(setNextTimer(settings))}
+      onClick={() => {
+        if (window.currentAmbientAudio) {
+          window.currentAmbientAudio.pause()
+          window.currentAmbientAudio = null
+        }
+        dispatch(setNextTimer(settings))
+      }}
       size="small"
     >
       <SkipNext />
