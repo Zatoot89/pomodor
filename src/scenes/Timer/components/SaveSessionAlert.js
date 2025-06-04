@@ -10,6 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
 import { setSaveSessionAlert } from '../data/timer/actions'
 import { startAddSession } from '../../../data/sessions/actions'
+import { clearTasks } from '../../../data/tasks/actions'
 
 const Time = styled.span`
   color: ${({ color }) => color};
@@ -18,6 +19,7 @@ const Time = styled.span`
 export const SaveSessionAlert = ({ time }) => {
   const { saveSessionAlert } = useSelector((state) => state.timer)
   const label = useSelector((state) => state.labels.labelSelected)
+  const tasks = useSelector((state) => state.tasks)
 
   const theme = useTheme()
 
@@ -32,9 +34,11 @@ export const SaveSessionAlert = ({ time }) => {
       startAddSession({
         duration: time,
         label: label ? label.id : null,
+        tasks,
         createdAt: Date.now(),
       })
     )
+    dispatch(clearTasks())
     closeAlert()
   }
 

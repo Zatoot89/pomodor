@@ -7,6 +7,7 @@ import { SessionsTable } from './components/SessionsTable'
 import { NoData } from './components/NoData'
 import { Grid } from '@material-ui/core'
 import styled from 'styled-components'
+import { SessionTasks } from './components/SessionTasks'
 
 export const Stats = () => {
   const sessions = useSelector((state) => state.sessions)
@@ -32,6 +33,7 @@ export const Stats = () => {
               <SessionsTable />
             </Grid>
           </Grid>
+          <SessionTasks />
         </Container>
       ) : (
         <NoData />
