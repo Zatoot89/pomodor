@@ -8,6 +8,14 @@ export const initialState = {
   darkMode: false,
   autostart: false,
   firstDayOfTheWeek: 'Monday',
+  alarmSound: 'chime.mp3',
+  alarmVolume: 100,
+  ambientWorkEnabled: false,
+  ambientBreakEnabled: false,
+  ambientSoundWork: 'rain.mp3',
+  ambientSoundBreak: 'cafe.mp3',
+  ambientVolume: 50,
+  customAlarmSound: null,
 }
 
 export const reducer = (state = initialState, action) => {
@@ -51,6 +59,46 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         autostart: action.autostart,
+      }
+    case 'SET_ALARM_SOUND':
+      return {
+        ...state,
+        alarmSound: action.sound,
+      }
+    case 'SET_ALARM_VOLUME':
+      return {
+        ...state,
+        alarmVolume: action.volume,
+      }
+    case 'SET_AMBIENT_WORK_ENABLED':
+      return {
+        ...state,
+        ambientWorkEnabled: action.enabled,
+      }
+    case 'SET_AMBIENT_BREAK_ENABLED':
+      return {
+        ...state,
+        ambientBreakEnabled: action.enabled,
+      }
+    case 'SET_AMBIENT_SOUND_WORK':
+      return {
+        ...state,
+        ambientSoundWork: action.sound,
+      }
+    case 'SET_AMBIENT_SOUND_BREAK':
+      return {
+        ...state,
+        ambientSoundBreak: action.sound,
+      }
+    case 'SET_AMBIENT_VOLUME':
+      return {
+        ...state,
+        ambientVolume: action.volume,
+      }
+    case 'SET_CUSTOM_ALARM_SOUND':
+      return {
+        ...state,
+        customAlarmSound: action.data,
       }
     case 'SET_FIRST_DAY_OF_THE_WEEK':
       return {

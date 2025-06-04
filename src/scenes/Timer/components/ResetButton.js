@@ -21,6 +21,10 @@ export const ResetButton = () => {
   const dispatch = useDispatch()
 
   const handleClick = () => {
+    if (window.currentAmbientAudio) {
+      window.currentAmbientAudio.pause()
+      window.currentAmbientAudio = null
+    }
     if (type === TYPES.work) {
       const secondsTotal = workDuration * 60
       const secondsLeft = timeLeft.minutes * 60 + timeLeft.seconds
