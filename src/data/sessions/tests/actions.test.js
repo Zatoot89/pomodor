@@ -24,9 +24,9 @@ beforeEach(async (done) => {
     batch.delete(fs.doc(`users/${uid}/sessions/${id}`))
   })
 
-  sessions.forEach(({ id, label, duration, createdAt }) => {
+  sessions.forEach(({ id, label, duration, tasks, createdAt }) => {
     const ref = fs.collection(`users/${uid}/sessions`).doc(id)
-    batch.set(ref, { label, duration, createdAt })
+    batch.set(ref, { label, duration, tasks, createdAt })
   })
 
   await batch.commit()

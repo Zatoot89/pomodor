@@ -3,10 +3,12 @@ import { useSelector } from 'react-redux'
 import { Overview } from './components/Overview'
 import { DaysChart } from './components/DaysChart'
 import { LabelsChart } from './components/LabelsChart'
+import { SessionsTable } from './components/SessionsTable'
 import { NoData } from './components/NoData'
 import { GoalStreak } from './components/GoalStreak'
 import { Grid } from '@material-ui/core'
 import styled from 'styled-components'
+import { SessionTasks } from './components/SessionTasks'
 
 export const Stats = () => {
   const sessions = useSelector((state) => state.sessions)
@@ -31,7 +33,12 @@ export const Stats = () => {
             <Grid item xs={12} lg={6}>
               <LabelsChart />
             </Grid>
+
+            <Grid item xs={12}>
+              <SessionsTable />
+            </Grid>
           </Grid>
+          <SessionTasks />
         </Container>
       ) : (
         <NoData />

@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button'
 import { SaveSessionAlert } from '../SaveSessionAlert'
 import * as timerActions from '../../data/timer/actions'
 import * as sessionsActions from '../../../../data/sessions/actions'
+import * as tasksActions from '../../../../data/tasks/actions'
 
 describe('<SaveSessionAlert />', () => {
   const time = { minutes: 4, seconds: 11 }
@@ -21,6 +22,7 @@ describe('<SaveSessionAlert />', () => {
     const store = {
       timer: { saveSessionAlert: true },
       labels: { labelSelected: null },
+      tasks: [{ id: '1', text: 'task', completed: false }],
     }
 
     jest
@@ -63,6 +65,9 @@ describe('<SaveSessionAlert />', () => {
     const startAddSessionMocked = jest
       .spyOn(sessionsActions, 'startAddSession')
       .mockImplementation(() => jest.fn())
+    const clearTasksMocked = jest
+      .spyOn(tasksActions, 'clearTasks')
+      .mockImplementation(() => jest.fn())
 
     createStore()
 
@@ -71,7 +76,9 @@ describe('<SaveSessionAlert />', () => {
     expect(startAddSessionMocked).toHaveBeenCalledWith({
       duration: time,
       label: null,
+      tasks: [{ id: '1', text: 'task', completed: false }],
       createdAt: expect.any(Number),
     })
+    expect(clearTasksMocked).toHaveBeenCalled()
   })
 })

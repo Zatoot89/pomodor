@@ -5,6 +5,8 @@ import { Sliders } from './components/Sliders'
 import { Switches } from './components/Switches'
 import { DaySelect } from './components/DaySelect'
 import { Goals } from './components/Goals'
+import { SoundSettings } from './components/SoundSettings'
+
 
 export const Settings = () => {
   const sidenav = +useMediaQuery('(min-width:600px) and (min-height:500px)')
@@ -15,6 +17,7 @@ export const Settings = () => {
       <DaySelect />
       <Goals />
       <Switches />
+      <SoundSettings />
     </Container>
   )
 }

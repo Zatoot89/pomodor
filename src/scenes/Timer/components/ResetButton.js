@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { resetTimer, setSaveSessionAlert } from '../data/timer/actions'
 import { TYPES, STATUSES } from '../data/timer/reducer'
 import { SaveSessionAlert } from './SaveSessionAlert'
+import { clearTasks } from '../../../data/tasks/actions'
 
 export const ResetButton = () => {
   const { type, timeLeft, status } = useSelector((state) => state.timer)
@@ -21,6 +22,10 @@ export const ResetButton = () => {
   const dispatch = useDispatch()
 
   const handleClick = () => {
+    if (window.currentAmbientAudio) {
+      window.currentAmbientAudio.pause()
+      window.currentAmbientAudio = null
+    }
     if (type === TYPES.work) {
       const secondsTotal = workDuration * 60
       const secondsLeft = timeLeft.minutes * 60 + timeLeft.seconds
@@ -55,6 +60,7 @@ export const ResetButton = () => {
         break
     }
     dispatch(resetTimer({ duration, showTimerInTitle }))
+    dispatch(clearTasks())
   }
 
   return (

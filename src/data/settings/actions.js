@@ -153,6 +153,7 @@ export const startSetFirstDayOfTheWeek = (firstDayOfTheWeek) => {
   }
 }
 
+
 export const setDailyGoal = (dailyGoal) => ({
   type: 'SET_DAILY_GOAL',
   dailyGoal,
@@ -184,6 +185,134 @@ export const startSetWeeklyGoal = (weeklyGoal) => {
     await fs
       .doc(`users/${uid}`)
       .set({ settings: { weeklyGoal } }, { merge: true })
+
+export const setAlarmSound = (sound) => ({
+  type: 'SET_ALARM_SOUND',
+  sound,
+})
+
+export const startSetAlarmSound = (sound) => {
+  return async (dispatch, getState) => {
+    const uid = getState().auth.uid
+
+    dispatch(setAlarmSound(sound))
+
+    await fs.doc(`users/${uid}`).set({ settings: { alarmSound: sound } }, { merge: true })
+  }
+}
+
+export const setAlarmVolume = (volume) => ({
+  type: 'SET_ALARM_VOLUME',
+  volume,
+})
+
+export const startSetAlarmVolume = (volume) => {
+  return async (dispatch, getState) => {
+    const uid = getState().auth.uid
+
+    localStorage.setItem('alarmVolume', volume)
+
+    dispatch(setAlarmVolume(volume))
+
+    await fs.doc(`users/${uid}`).set({ settings: { alarmVolume: volume } }, { merge: true })
+  }
+}
+
+export const setAmbientWorkEnabled = (enabled) => ({
+  type: 'SET_AMBIENT_WORK_ENABLED',
+  enabled,
+})
+
+export const startSetAmbientWorkEnabled = (enabled) => {
+  return async (dispatch, getState) => {
+    const uid = getState().auth.uid
+
+    dispatch(setAmbientWorkEnabled(enabled))
+
+    await fs.doc(`users/${uid}`).set({ settings: { ambientWorkEnabled: enabled } }, { merge: true })
+  }
+}
+
+export const setAmbientBreakEnabled = (enabled) => ({
+  type: 'SET_AMBIENT_BREAK_ENABLED',
+  enabled,
+})
+
+export const startSetAmbientBreakEnabled = (enabled) => {
+  return async (dispatch, getState) => {
+    const uid = getState().auth.uid
+
+    dispatch(setAmbientBreakEnabled(enabled))
+
+    await fs.doc(`users/${uid}`).set({ settings: { ambientBreakEnabled: enabled } }, { merge: true })
+  }
+}
+
+export const setAmbientSoundWork = (sound) => ({
+  type: 'SET_AMBIENT_SOUND_WORK',
+  sound,
+})
+
+export const startSetAmbientSoundWork = (sound) => {
+  return async (dispatch, getState) => {
+    const uid = getState().auth.uid
+
+    dispatch(setAmbientSoundWork(sound))
+
+    await fs.doc(`users/${uid}`).set({ settings: { ambientSoundWork: sound } }, { merge: true })
+  }
+}
+
+export const setAmbientSoundBreak = (sound) => ({
+  type: 'SET_AMBIENT_SOUND_BREAK',
+  sound,
+})
+
+export const startSetAmbientSoundBreak = (sound) => {
+  return async (dispatch, getState) => {
+    const uid = getState().auth.uid
+
+    dispatch(setAmbientSoundBreak(sound))
+
+    await fs.doc(`users/${uid}`).set({ settings: { ambientSoundBreak: sound } }, { merge: true })
+  }
+}
+
+export const setAmbientVolume = (volume) => ({
+  type: 'SET_AMBIENT_VOLUME',
+  volume,
+})
+
+export const startSetAmbientVolume = (volume) => {
+  return async (dispatch, getState) => {
+    const uid = getState().auth.uid
+
+    localStorage.setItem('ambientVolume', volume)
+
+    dispatch(setAmbientVolume(volume))
+
+    await fs.doc(`users/${uid}`).set({ settings: { ambientVolume: volume } }, { merge: true })
+  }
+}
+
+export const setCustomAlarmSound = (data) => ({
+  type: 'SET_CUSTOM_ALARM_SOUND',
+  data,
+})
+
+export const startSetCustomAlarmSound = (data) => {
+  return async (dispatch, getState) => {
+    const uid = getState().auth.uid
+    const plan = getState().subscription.plan
+
+    dispatch(setCustomAlarmSound(data))
+
+    if (plan === 'pro') {
+      await fs.doc(`users/${uid}`).set({ settings: { customAlarmSound: data } }, { merge: true })
+    } else {
+      localStorage.setItem('customAlarmSound', data)
+    }
+
   }
 }
 
@@ -202,6 +331,21 @@ export const startSetSettings = () => {
 
       if (docRef.exists) {
         data = docRef.data().settings
+      }
+
+      const custom = localStorage.getItem('customAlarmSound')
+      if (custom && !data.customAlarmSound) {
+        data.customAlarmSound = custom
+      }
+
+      const alarmVolume = localStorage.getItem('alarmVolume')
+      if (alarmVolume && !data.alarmVolume) {
+        data.alarmVolume = +alarmVolume
+      }
+
+      const ambientVolume = localStorage.getItem('ambientVolume')
+      if (ambientVolume && !data.ambientVolume) {
+        data.ambientVolume = +ambientVolume
       }
 
       dispatch(setSettings(data))
