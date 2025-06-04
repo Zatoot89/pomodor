@@ -5,6 +5,7 @@ import { DaysChart } from './components/DaysChart'
 import { LabelsChart } from './components/LabelsChart'
 import { SessionsTable } from './components/SessionsTable'
 import { NoData } from './components/NoData'
+import { GoalStreak } from './components/GoalStreak'
 import { Grid } from '@material-ui/core'
 import styled from 'styled-components'
 import { SessionTasks } from './components/SessionTasks'
@@ -17,9 +18,13 @@ export const Stats = () => {
       {sessions && sessions.length ? (
         <Container>
           <Grid container spacing={5} justify="center">
-            <Grid item xs={12}>
-              <Overview />
-            </Grid>
+          <Grid item xs={12}>
+            <Overview />
+          </Grid>
+
+          <Grid item xs={12}>
+            <GoalStreak />
+          </Grid>
 
             <Grid item xs={12} lg={6}>
               <DaysChart />

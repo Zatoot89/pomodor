@@ -8,6 +8,8 @@ export const initialState = {
   darkMode: false,
   autostart: false,
   firstDayOfTheWeek: 'Monday',
+  dailyGoal: { type: 'pomodoros', value: 4 },
+  weeklyGoal: { type: 'pomodoros', value: 20 },
   alarmSound: 'chime.mp3',
   alarmVolume: 100,
   ambientWorkEnabled: false,
@@ -16,6 +18,7 @@ export const initialState = {
   ambientSoundBreak: 'cafe.mp3',
   ambientVolume: 50,
   customAlarmSound: null,
+
 }
 
 export const reducer = (state = initialState, action) => {
@@ -104,6 +107,16 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         firstDayOfTheWeek: action.firstDayOfTheWeek,
+      }
+    case 'SET_DAILY_GOAL':
+      return {
+        ...state,
+        dailyGoal: action.dailyGoal,
+      }
+    case 'SET_WEEKLY_GOAL':
+      return {
+        ...state,
+        weeklyGoal: action.weeklyGoal,
       }
     case 'SET_SETTINGS':
       return {
