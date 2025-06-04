@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton'
 import styled from 'styled-components'
@@ -16,6 +16,14 @@ import {
 } from '../data/timer/actions'
 import { STATUSES, TYPES, setTitle } from '../data/timer/reducer'
 import chime from '../assets/chime.mp3'
+// The following audio files are optional and should be placed in
+// `src/scenes/Timer/assets` if available.
+// import beep from '../assets/beep.mp3'
+// import bell from '../assets/bell.mp3'
+// import digital from '../assets/digital.mp3'
+// import rain from '../assets/rain.mp3'
+// import cafe from '../assets/cafe.mp3'
+// import whiteNoise from '../assets/white-noise.mp3'
 import work from '../assets/work.png'
 import alarm from '../assets/alarm.png'
 import coffee from '../assets/coffee.png'
@@ -35,7 +43,67 @@ export const ToggleButton = () => {
 
   const dispatch = useDispatch()
 
-  const audio = new Audio(chime)
+  const alarmAudio = useRef(null)
+  const ambientAudio = useRef(null)
+
+  const getAlarmSrc = () => {
+    if (settings.alarmSound === 'custom' && settings.customAlarmSound) {
+      return settings.customAlarmSound
+    }
+    switch (settings.alarmSound) {
+      // case 'beep.mp3':
+      //   return beep // add beep.mp3 to assets to enable
+      // case 'bell.mp3':
+      //   return bell // add bell.mp3 to assets to enable
+      // case 'digital.mp3':
+      //   return digital // add digital.mp3 to assets to enable
+      default:
+        return chime
+    }
+  }
+
+  const getAmbientSrc = (sound) => {
+    switch (sound) {
+      // case 'rain.mp3':
+      //   return rain // add rain.mp3 to assets to enable
+      // case 'cafe.mp3':
+      //   return cafe // add cafe.mp3 to assets to enable
+      // case 'white-noise.mp3':
+      //   return whiteNoise // add white-noise.mp3 to assets to enable
+      default:
+        return null
+    }
+  }
+
+  const startAmbient = () => {
+    if (ambientAudio.current) {
+      ambientAudio.current.pause()
+      ambientAudio.current = null
+    }
+
+    let src = null
+    if (type === TYPES.work && settings.ambientWorkEnabled) {
+      src = getAmbientSrc(settings.ambientSoundWork)
+    } else if (type !== TYPES.work && settings.ambientBreakEnabled) {
+      src = getAmbientSrc(settings.ambientSoundBreak)
+    }
+
+    if (src) {
+      ambientAudio.current = new Audio(src)
+      ambientAudio.current.loop = true
+      ambientAudio.current.volume = settings.ambientVolume / 100
+      ambientAudio.current.play()
+      window.currentAmbientAudio = ambientAudio.current
+    }
+  }
+
+  const stopAmbient = () => {
+    if (ambientAudio.current) {
+      ambientAudio.current.pause()
+      ambientAudio.current = null
+      window.currentAmbientAudio = null
+    }
+  }
 
   const startTimer = () => {
     if (status === STATUSES.running) return
@@ -45,6 +113,7 @@ export const ToggleButton = () => {
     }
 
     dispatch(setStatus(STATUSES.running))
+    startAmbient()
 
     const endTime = new Date(
       new Date().getTime() + timeLeft.minutes * 60000 + timeLeft.seconds * 1000
@@ -79,7 +148,10 @@ export const ToggleButton = () => {
         setTimeout(async () => {
           dispatch(setNextTimer(settings))
 
-          audio.play()
+          stopAmbient()
+          alarmAudio.current = new Audio(getAlarmSrc())
+          alarmAudio.current.volume = settings.alarmVolume / 100
+          alarmAudio.current.play()
 
           if (
             settings.showNotifications &&
@@ -176,6 +248,7 @@ export const ToggleButton = () => {
           dark={darkMode || darkModeCached}
           theme={theme}
           onClick={() => {
+            stopAmbient()
             dispatch(pauseTimer())
           }}
         >

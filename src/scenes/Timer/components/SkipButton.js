@@ -11,14 +11,25 @@ export const SkipButton = () => {
   const settings = useSelector((state) => state.settings)
   const dispatch = useDispatch()
 
+  const handleSkip = () => {
+    // 1) Stop any playing ambient audio
+    if (window.currentAmbientAudio) {
+      window.currentAmbientAudio.pause()
+      window.currentAmbientAudio = null
+    }
+
+    // 2) Advance to the next timer
+    dispatch(setNextTimer(settings))
+
+    // 3) Clear all current tasks
+    dispatch(clearTasks())
+  }
+
   return (
     <ActionIcon
       disabled={!timeLeft}
       aria-label="Skip current timer"
-      onClick={() => {
-        dispatch(setNextTimer(settings))
-        dispatch(clearTasks())
-      }}
+      onClick={handleSkip}
       size="small"
     >
       <SkipNext />
