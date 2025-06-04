@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Overview } from './components/Overview'
 import { DaysChart } from './components/DaysChart'
 import { LabelsChart } from './components/LabelsChart'
+import { SessionsTable } from './components/SessionsTable'
 import { NoData } from './components/NoData'
 import { Grid } from '@material-ui/core'
 import styled from 'styled-components'
@@ -25,6 +26,10 @@ export const Stats = () => {
 
             <Grid item xs={12} lg={6}>
               <LabelsChart />
+            </Grid>
+
+            <Grid item xs={12}>
+              <SessionsTable />
             </Grid>
           </Grid>
         </Container>
